@@ -10,8 +10,8 @@ import requests
 
 def main(features=['Total Debt/Equity (mrq)','Return on Equity (ttm)', 'Return on Assets (ttm)',
                    'Mean Recommendation (this week)', 'This Year', 'Market Cap (intraday)', 'Trailing P/E (ttm, intraday)',
-                   'PEG Ratio(5 yr expected)', 'Price/Sales (ttm)', 'Price/Book (mrq)', 'Enterprise Value/Revenue (ttm)', 'Enterprise Value/EBITDA (ttm)', 'price' ]):
-    df_stock_info = pd.DataFrame.from_csv('constituents.csv', index_col = False)
+                   'PEG Ratio (5 yr expected)', 'Price/Sales (ttm)', 'Price/Book (mrq)', 'Enterprise Value/Revenue (ttm)', 'Enterprise Value/EBITDA (ttm)', 'price' ]):
+    df_stock_info = pd.DataFrame.from_csv('C:/Users/Babbu/Desktop/constituents.csv', index_col = False)
     alist = df_stock_info["Symbol"].tolist()
     parsingError = 'N/A'
     for x in range(0,280):
@@ -43,11 +43,11 @@ def main(features=['Total Debt/Equity (mrq)','Return on Equity (ttm)', 'Return o
             value5 = data3.split(features[4] + '</td><td class="yfnc_tabledata1">')[1].split('</td>')[0].replace('%','')
             value6 = data.split(features[5])[1].split('yfs_j10_' + stockName.lower() + '">')[1].split('</span>')[0]
             value7 = data.split(features[6] + ':</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
-            value8 = 'z'#data.split(features[7])[1].split('class="yfnc_tabledata1">')[1].split('</td>')[0]
+            value8 = data.split(features[7])[1].split('class="yfnc_tabledata1">')[1].split('</td>')[0]
             value9 = data.split(features[8] + ':</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
             value10 = data.split(features[9] +  ':</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
-            value11 = 'z'#data.split(features[10] + 'class="yfnc_tabledata1">')[1].split('</td>')[0]
-            value12 = 'z'#data.split(features[11] + 'class="yfnc_tabledata1">')[1].split('</td>')[0]
+            value11 = data.split(features[10])[1].split('tabledata1">')[1].split('</td>')[0]
+            value12 = data.split(features[11])[1].split('tabledata1">')[1].split('</td>')[0]
             value13 = data.split('yfs_l84_' + stockName.lower() + '">')[1].split('</span>')[0]
                                                                                              
             try:
@@ -67,43 +67,3 @@ def main(features=['Total Debt/Equity (mrq)','Return on Equity (ttm)', 'Return o
         
 
 main()
-
-
-
-
-##/*
-##import pandas as pd
-##import os
-##import time
-##from datetime import datetime
-##import requests
-##
-##
-##def main(feature='Total Debt/Equity (mrq)'):
-##    
-##    path = "C:/Users/sdd/"
-##    stockName = input('Enter stock: ')
-##    
-##    url = 'https://ca.finance.yahoo.com/q/ks?s=' + stockName
-##    df = pd.DataFrame(columns = ['Date', 'Name', 'Debt/Equity'])
-##    
-##    r = requests.get(url)
-##    data = r.text
-##    dateStamp = data.split('<span id="yfs_market_time">')[1].split('-')[0]
-##    
-##    value = data.split(feature + ':</td><td class="yfnc_tabledata1">')
-##    value1 = value[1].split('</td>')
-##    value2 = value1[0]
-##    #print(stockName + "--" + feature + "............ " + value2 + " .............. " + dateStamp)
-##
-##    df = df.append({'Date':dateStamp, 'Name':stockName, 'Debt/Equity':value2}, ignore_index = True)
-##
-##    save = feature.replace('/','').replace('(','').replace(')','').replace(' ', '') +('.csv')
-##    path = path + save
-##    print(path)
-##    df.to_csv(path)
-##    
-##    
-##
-##main()
-##*/
